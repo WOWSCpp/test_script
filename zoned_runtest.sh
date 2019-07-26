@@ -8,7 +8,7 @@ rm -rf ../results/iostat.txt
 
 # FIO Variables
 fio_blocksize="4K"
-size="200G"
+size="100G"
 iodepth="64"
 rread=80
 rwrite=20
