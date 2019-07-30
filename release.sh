@@ -37,16 +37,23 @@ echo 1 > /sys/block/bcache7/bcache/stop
 
 
 
-echo 1 > /sys/block/sda/bcache/stop
-echo 1 > /sys/block/sdb/bcache/stop
-echo 1 > /sys/block/sdc/bcache/stop
-echo 1 > /sys/block/sdd/bcache/stop
-echo 1 > /sys/block/sde/bcache/stop
-echo 1 > /sys/block/sdf/bcache/stop
-echo 1 > /sys/block/sdg/bcache/stop
-echo 1 > /sys/block/sdh/bcache/stop
+echo 1 > /sys/block/sda1/bcache/stop
+echo 1 > /sys/block/sdb1/bcache/stop
+echo 1 > /sys/block/sdc1/bcache/stop
+echo 1 > /sys/block/sdd1/bcache/stop
+echo 1 > /sys/block/sde1/bcache/stop
+echo 1 > /sys/block/sdf1/bcache/stop
+echo 1 > /sys/block/sdg1/bcache/stop
+echo 1 > /sys/block/sdh1/bcache/stop
 
-
+echo 1 > /sys/block/sda/sda1/bcache/stop
+echo 1 > /sys/block/sdb/sdb1/bcache/stop
+echo 1 > /sys/block/sdc/sdc1/bcache/stop
+echo 1 > /sys/block/sdd/sdd1/bcache/stop
+echo 1 > /sys/block/sde/sde1/bcache/stop
+echo 1 > /sys/block/sdf/sdf1/bcache/stop
+echo 1 > /sys/block/sdg/sdg1/bcache/stop
+echo 1 > /sys/block/sdh/sdh1/bcache/stop
 
 
 echo 1 > /sys/fs/bcache/"${aaa[1]}"/stop

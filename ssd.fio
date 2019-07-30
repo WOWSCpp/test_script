@@ -1,0 +1,15 @@
+[global]
+direct=1
+rw=rw
+rwmixread=80
+rwmixwrite=20
+bs=64k
+runtime=200
+ramp_time=15
+ioengine=libaio
+iodepth=16
+group_reporting=1
+thread=1
+
+[job_1]
+filename=/dev/nvme0n1p1

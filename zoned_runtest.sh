@@ -28,7 +28,7 @@ echo "start statistic"
 #./trace.sh&
 
 echo "$hit % Hit_${fio_blocksize} ${iodev}"
-fio --direct=1 --size=${size} --blocksize=${fio_blocksize} --ioengine=libaio -thread --rw=randwrite --random_distribution=zoned:90/10:10/90 --iodepth=${iodepth} --numjob=${numjob} --group_reporting  --filename=${filename} --name=test  --output=../results/overall_iostat.txt
+fio --direct=1 --size=${size} --blocksize=${fio_blocksize} --ioengine=libaio -thread --rw=randread --random_distribution=zoned:90/10:10/90 --iodepth=${iodepth} --numjob=${numjob} --group_reporting  --filename=${filename} --name=test  --output=../results/overall_iostat.txt
 
 pkill -f memory.sh &
 pkill -f statistic.sh &

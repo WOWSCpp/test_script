@@ -3,14 +3,14 @@
 clear
 
 # Cache Variables
-b1="/dev/sda"
-b2="/dev/sdb"
-b3="/dev/sdd"
-b4="/dev/sde"
-b5="/dev/sdf"
-b6="/dev/sdg"
-b7="/dev/sdh"
-b8="/dev/sdc"
+b1="/dev/sda1"
+b2="/dev/sdb1"
+b3="/dev/sdd1"
+b4="/dev/sde1"
+b5="/dev/sdf1"
+b6="/dev/sdg1"
+b7="/dev/sdh1"
+b8="/dev/sdc1"
 
 cache_device="/dev/nvme0n1p1"
 cache_policy="lru"
@@ -56,7 +56,7 @@ bcache_create()
     echo "Creating a cache"
    
    # make-bcache -B ${b1}  -C ${cache_device} --bucket ${cache_bucket_size} --discard --writeback
-    make-bcache -B ${b1} ${b2} ${b3} ${b4} ${b5} ${b6} ${b7} ${b8} --wipe-bcache  -C ${cache_device} --bucket ${cache_bucket_size} --writeback
+    make-bcache -B ${b1}  ${b2} ${b3} ${b4} ${b5} ${b6} ${b7} ${b8} --wipe-bcache  -C ${cache_device} --bucket ${cache_bucket_size} --writeback
 
    # make-bcache -B ${source_device1} ${source_device2} ${source_device3} ${source_device4} -C ${cache_device} --bucket ${cache_bucket_size} --discard --writeback
 
