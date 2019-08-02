@@ -8,8 +8,8 @@ class AutoRun(object):
 		self.now_size 		= 4
 		self.max_size 		= 9
 		self.task_count 	= 0
-		self.warmup_time 	= 10
-		self.stable_time 	= 10
+		self.warmup_time 	= 6
+		self.stable_time 	= 8
 		self.numjobs		= 4.0
 
 	def wait_and_check(self, t, status):
@@ -102,6 +102,7 @@ class AutoRun(object):
 				self.warmup = False
 			else:
 				self.warmup = True
+			time.sleep(5)
 
 if __name__ == '__main__':
 	run = AutoRun()
