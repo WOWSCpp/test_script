@@ -61,10 +61,11 @@ class AutoRun(object):
 		print ("copy and upload data start !!!!!!!!!!!!!!!!!!!!!!")
 		root_dir = "~/results/auto_test_res/" + str(self.now_size) + "g"
 		if self.warmup:
-			root_dir += "/warmup"
+			root_dir += "/warmup/"
 		else:
-			root_dir += "/stable"
-
+			root_dir += "/stable/"
+			
+		print ("Now cd to %s" % root_dir)
 		os.chdir(root_dir)
 		status = os.system("cd %s" % root_dir)
 		self.wait_and_check(1, status)
