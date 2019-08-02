@@ -47,11 +47,7 @@ class AutoRun(object):
 	def run_task(self):
 		print ("run task start !!!!!!!!!!!!!!!!!!!!!!")
 		status = os.system('sh ~/test_script/test1.sh')
-		if self.warmup:
-			wait_time = self.warmup_time + 10
-		else:
-			wait_time = self.stable_time + 10
-		self.wait_and_check(wait_time, status)
+		self.wait_and_check(1, status)
 		print ("run task done !!!!!!!!!!!!!!!!!!!!!!")
 
 
@@ -59,12 +55,12 @@ class AutoRun(object):
 		# first cd to the git path
 
 		print ("copy and upload data start !!!!!!!!!!!!!!!!!!!!!!")
-		root_dir = "~/results/auto_test_res/" + str(self.now_size) + "g"
+		root_dir = "/root/results/auto_test_res/" + str(self.now_size) + "g"
 		if self.warmup:
 			root_dir += "/warmup/"
 		else:
 			root_dir += "/stable/"
-			
+
 		print ("Now cd to %s" % root_dir)
 		os.chdir(root_dir)
 		status = os.system("cd %s" % root_dir)
