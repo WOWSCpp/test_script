@@ -95,7 +95,7 @@ class AutoRun(object):
 			self.copy_and_upload_data()
 
 			self.task_count += 1
-			if task_count % 2 == 0:
+			if self.task_count % 2 == 0:
 				self.now_size += 1
 
 			if self.warmup:
