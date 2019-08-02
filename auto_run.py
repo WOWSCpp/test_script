@@ -18,11 +18,11 @@ class AutoRun(object):
 
 	def reset_bcache(self):
 		print ("reset bcache start !!!!!!!!!!!!!!!!!!!!!!")
-		status = os.system('sh ~/test_script/release.sh')
+		status = os.system('sh /root/test_script/release.sh')
 		print (status)
 		self.wait_and_check(5, status)
 		
-		status = os.system('sh ~/test_script/bcache.sh')
+		status = os.system('sh /root/test_script/bcache.sh')
 		self.wait_and_check(5, status)
 		print ("reset bcache done !!!!!!!!!!!!!!!!!!!!!!")
 
@@ -46,7 +46,7 @@ class AutoRun(object):
 
 	def run_task(self):
 		print ("run task start !!!!!!!!!!!!!!!!!!!!!!")
-		status = os.system('sh ~/test_script/test1.sh')
+		status = os.system('sh /root/test_script/test1.sh')
 		self.wait_and_check(1, status)
 		print ("run task done !!!!!!!!!!!!!!!!!!!!!!")
 
@@ -69,9 +69,9 @@ class AutoRun(object):
 		# second do the things with git
 		_size   = str(self.now_size) + "g"
 		_status = "warmup" if self.warmup else "stable"
-		status = os.system('cp ~/test_script/*.log .')
+		status = os.system('cp /root/test_script/*.log .')
 		self.wait_and_check(1, status)
-		status = os.system('cp ~/results/*.txt .')
+		status = os.system('cp /root/results/*.txt .')
 		self.wait_and_check(1, status)
 		status = os.system('git add *')
 		self.wait_and_check(1, status)
@@ -81,8 +81,8 @@ class AutoRun(object):
 		self.wait_and_check(5, status)
 
 		# last cd to the script path
-		os.chdir("~/test_script/")
-		status = os.system("cd ~/test_script/")
+		os.chdir("/root/test_script/")
+		status = os.system("cd /root/test_script/")
 		self.wait_and_check(1, status)
 		print ("copy and upload from %s done" % root_dir)
 
