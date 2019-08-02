@@ -30,7 +30,7 @@ class AutoRun(object):
 		# change size every two tasks
 		# change runtime every one task
 		print ("change parameter start !!!!!!!!!!!!!!!!!!!!!!")
-		size = str(self.now_size / self.numjobs * 1024) + "M"
+		size = str(int(self.now_size / self.numjobs * 1024)) + "M"
 		status = os.system("sed -i 's/size=.*/size=%s/' ray.fio" % size)
 		self.wait_and_check(1, status)
 		
