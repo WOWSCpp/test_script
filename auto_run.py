@@ -14,7 +14,7 @@ class AutoRun(object):
 
 	def wait_and_check(self, t, status):
 		time.sleep(t)
-		assert(status == 0)
+		#assert(status == 0)
 
 	def reset_bcache(self):
 		print ("reset bcache start !!!!!!!!!!!!!!!!!!!!!!")
@@ -31,14 +31,14 @@ class AutoRun(object):
 		# change runtime every one task
 		print ("change parameter start !!!!!!!!!!!!!!!!!!!!!!")
 		size = str(self.now_size / self.numjobs * 1024) + "M"
-		status = os.system("sed -i 's/size=.*/size=%s/' cache_size_experiment.fio" % size)
+		status = os.system("sed -i 's/size=.*/size=%s/' ray.fio" % size)
 		self.wait_and_check(1, status)
 		
 		if self.warmup:
 			runtime = str(self.warmup_time)
 		else:
 			runtime = str(self.stable_time)
-		status = os.system("sed -i 's/runtime=.*/runtime=%s/' cache_size_experiment.fio" % runtime)
+		status = os.system("sed -i 's/runtime=.*/runtime=%s/' ray.fio" % runtime)
 		self.wait_and_check(1, status)
 
 		print ("parameter after change: size: %s, runtime: %s" % (size, runtime)) 
