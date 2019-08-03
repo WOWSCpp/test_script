@@ -5,11 +5,11 @@ import time
 class AutoRun(object):
 	def __init__(self):
 		self.warmup 		= True
-		self.now_size 		= 4
-		self.max_size 		= 9
+		self.now_percent	= 4
+		self.max_percent	= 15
 		self.task_count 	= 0
-		self.warmup_time 	= 6
-		self.stable_time 	= 8
+		self.warmup_time 	= 5 
+		self.stable_time 	= 10
 		self.numjobs		= 4.0
 
 	def wait_and_check(self, t, status):
@@ -27,11 +27,13 @@ class AutoRun(object):
 		print ("reset bcache done !!!!!!!!!!!!!!!!!!!!!!")
 
 	def change_parameter(self):
-		# change size every two tasks
+		# change random_distribution every two tasks
 		# change runtime every one task
 		print ("change parameter start !!!!!!!!!!!!!!!!!!!!!!")
-		size = str(int(self.now_size / self.numjobs * 1024)) + "M"
-		status = os.system("sed -i 's/size=.*/size=%s/' ray.fio" % size)
+		hot 	= self.now_percent
+		cold 	= 100 - self.now_percent
+		random_distribution = "zoned:100/%s:0/%s" % (hot, cold) 
+		status = os.system("sed -i 's/random_distribution=.*/random_distribution=%s/' ray.fio" % random_distribution)
 		self.wait_and_check(1, status)
 		
 		if self.warmup:
@@ -41,7 +43,7 @@ class AutoRun(object):
 		status = os.system("sed -i 's/runtime=.*/runtime=%s/' ray.fio" % runtime)
 		self.wait_and_check(1, status)
 
-		print ("parameter after change: size: %s, runtime: %s" % (size, runtime)) 
+		print ("parameter after change: random_distribution: %s, runtime: %s" % (random_distribution, runtime)) 
 
 
 	def run_task(self):
@@ -55,7 +57,7 @@ class AutoRun(object):
 		# first cd to the git path
 
 		print ("copy and upload data start !!!!!!!!!!!!!!!!!!!!!!")
-		root_dir = "/root/results/auto_test_res/" + str(self.now_size) + "g"
+		root_dir = "/root/results/auto_test_res/" + str(self.now_percent) + "g"
 		if self.warmup:
 			root_dir += "/warmup/"
 		else:
@@ -67,7 +69,7 @@ class AutoRun(object):
 		self.wait_and_check(1, status)
 
 		# second do the things with git
-		_size   = str(self.now_size) + "g"
+		_percent   = str(self.now_percent)
 		_status = "warmup" if self.warmup else "stable"
 		status = os.system('cp /root/test_script/*.log .')
 		self.wait_and_check(1, status)
@@ -75,7 +77,7 @@ class AutoRun(object):
 		self.wait_and_check(1, status)
 		status = os.system('git add *')
 		self.wait_and_check(1, status)
-		status = os.system('git commit -m "%s-%s"' % (_size, _status))
+		status = os.system('git commit -m "%s-%s"' % (_percent, _status))
 		self.wait_and_check(5, status)
 		status = os.system('git push')
 		self.wait_and_check(5, status)
@@ -88,7 +90,7 @@ class AutoRun(object):
 
 
 	def main_loop(self):
-		while self.now_size < self.max_size:
+		while self.now_percent <= self.max_percent:
 			self.reset_bcache()
 			self.change_parameter()
 			self.run_task()
@@ -96,7 +98,7 @@ class AutoRun(object):
 
 			self.task_count += 1
 			if self.task_count % 2 == 0:
-				self.now_size += 1
+				self.self.now_percent += 1
 
 			if self.warmup:
 				self.warmup = False
@@ -106,4 +108,4 @@ class AutoRun(object):
 
 if __name__ == '__main__':
 	run = AutoRun()
-	run.main_loop()
+	#run.main_loop()
