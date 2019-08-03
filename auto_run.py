@@ -57,7 +57,7 @@ class AutoRun(object):
 		# first cd to the git path
 
 		print ("copy and upload data start !!!!!!!!!!!!!!!!!!!!!!")
-		root_dir = "/root/results/auto_test_res/" + str(self.now_percent) + "g"
+		root_dir = "/root/results/auto_test_res/" + str(self.now_percent)
 		if self.warmup:
 			root_dir += "/warmup/"
 		else:
@@ -108,4 +108,4 @@ class AutoRun(object):
 
 if __name__ == '__main__':
 	run = AutoRun()
-	#run.main_loop()
+	run.main_loop()
