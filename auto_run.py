@@ -33,7 +33,7 @@ class AutoRun(object):
 		hot 	= self.now_percent
 		cold 	= 100 - self.now_percent
 		random_distribution = "zoned:100/%s:0/%s" % (hot, cold) 
-		status = os.system("sed -i 's/random_distribution=.*/random_distribution=%s/' ray.fio" % random_distribution)
+		status = os.system("sed -i 's@random_distribution=.*@random_distribution=%s@' ray.fio" % random_distribution)
 		self.wait_and_check(1, status)
 		
 		if self.warmup:
@@ -98,7 +98,7 @@ class AutoRun(object):
 
 			self.task_count += 1
 			if self.task_count % 2 == 0:
-				self.self.now_percent += 1
+				self.now_percent += 1
 
 			if self.warmup:
 				self.warmup = False
