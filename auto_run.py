@@ -5,11 +5,11 @@ import time
 class AutoRun(object):
 	def __init__(self):
 		self.warmup 		= True
-		self.now_percent	= 4
-		self.max_percent	= 15
+		self.now_percent	= 19
+		self.max_percent	= 19
 		self.task_count 	= 0
-		self.warmup_time 	= 5 
-		self.stable_time 	= 10
+		self.warmup_time 	= 1800
+		self.stable_time 	= 10800
 		self.numjobs		= 4.0
 
 	def wait_and_check(self, t, status):
@@ -33,14 +33,14 @@ class AutoRun(object):
 		hot 	= self.now_percent
 		cold 	= 100 - self.now_percent
 		random_distribution = "zoned:100/%s:0/%s" % (hot, cold) 
-		status = os.system("sed -i 's@random_distribution=.*@random_distribution=%s@' ray.fio" % random_distribution)
-		self.wait_and_check(1, status)
+		#status = os.system("sed -i 's@random_distribution=.*@random_distribution=%s@' ray.fio" % random_distribution)
+		#self.wait_and_check(1, status)
 		
 		if self.warmup:
 			runtime = str(self.warmup_time)
 		else:
 			runtime = str(self.stable_time)
-		status = os.system("sed -i 's/runtime=.*/runtime=%s/' ray.fio" % runtime)
+		status = os.system("sed -i 's/runtime=.*/runtime=%s/' mix_ray.fio" % runtime)
 		self.wait_and_check(1, status)
 
 		print ("parameter after change: random_distribution: %s, runtime: %s" % (random_distribution, runtime)) 
@@ -74,13 +74,13 @@ class AutoRun(object):
 		status = os.system('cp /root/test_script/*.log .')
 		self.wait_and_check(1, status)
 		status = os.system('cp /root/results/*.txt .')
-		self.wait_and_check(1, status)
-		status = os.system('git add *')
-		self.wait_and_check(1, status)
-		status = os.system('git commit -m "%s-%s"' % (_percent, _status))
-		self.wait_and_check(5, status)
-		status = os.system('git push')
-		self.wait_and_check(5, status)
+		#self.wait_and_check(1, status)
+		#status = os.system('git add *')
+		#self.wait_and_check(1, status)
+		#status = os.system('git commit -m "%s-%s"' % (_percent, _status))
+		#self.wait_and_check(5, status)
+		#status = os.system('git push')
+		#self.wait_and_check(5, status)
 
 		# last cd to the script path
 		os.chdir("/root/test_script/")
@@ -104,7 +104,7 @@ class AutoRun(object):
 				self.warmup = False
 			else:
 				self.warmup = True
-			time.sleep(5)
+			time.sleep(1800)
 
 if __name__ == '__main__':
 	run = AutoRun()

@@ -1,8 +1,8 @@
 [global]
 direct=1
 rw=read
-bs=64k
-size=400g
+bs=4k
+size=4g
 ioengine=libaio
 iodepth=16
 group_reporting=1
@@ -10,4 +10,4 @@ thread=1
 
 
 [job_1]
-filename=/dev/bcache0:/dev/bcache1:/dev/bcache2:/dev/bcache3:/dev/bcache4:/dev/bcache5:/dev/bcache6:/dev/bcache7
+filename=/dev/bcache0:/dev/bcache1:/dev/bcache2

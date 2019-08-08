@@ -7,8 +7,9 @@ rm -rf ../results/overall_iostat.txt
 rm -rf ../results/iostat.txt
 
 ./iostat.sh  &
+./statistic.sh &
 
-fio cache_size_experiment.fio
+fio write_ray.fio
 
 pkill -f memory.sh &
 pkill -f statistic.sh &
