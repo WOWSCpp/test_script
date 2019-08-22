@@ -3,14 +3,14 @@
 clear
 
 # Cache Variables
-b1="/dev/sda1"
-b2="/dev/sdb1"
+b1="/dev/sdb1"
+b2="/dev/sdc1"
 b3="/dev/sdd1"
-b4="/dev/sde1"
-b5="/dev/sdf1"
-b6="/dev/sdg1"
-b7="/dev/sdh1"
-b8="/dev/sdc1"
+#b4="/dev/sde1"
+#b5="/dev/sdf1"
+#b6="/dev/sdg1"
+#b7="/dev/sdh1"
+#b8="/dev/sdc1"
 
 cache_device="/dev/nvme0n1p1"
 cache_policy="lru"
@@ -56,7 +56,7 @@ bcache_create()
     echo "Creating a cache"
    
    # make-bcache -B ${b1}  -C ${cache_device} --bucket ${cache_bucket_size} --discard --writeback
-    make-bcache -B ${b1}  ${b2} ${b3} ${b4} ${b5} ${b6} ${b7} ${b8} --wipe-bcache  -C ${cache_device} --bucket ${cache_bucket_size} --writeback
+    make-bcache -B ${b1}  ${b2} ${b3} --wipe-bcache  -C ${cache_device} --bucket ${cache_bucket_size} --writeback
 
    # make-bcache -B ${source_device1} ${source_device2} ${source_device3} ${source_device4} -C ${cache_device} --bucket ${cache_bucket_size} --discard --writeback
 
@@ -65,6 +65,8 @@ bcache_create()
         echo "Setting cache mode: $cache_mode"
         sudo chmod 777 /sys/block/bcache0/bcache/cache_mode
 	echo writeback > /sys/block/bcache0/bcache/cache_mode
+	echo writeback > /sys/block/bcache1/bcache/cache_mode
+	echo writeback > /sys/block/bcache2/bcache/cache_mode
 
     fi    
 
@@ -91,7 +93,7 @@ aaa=($var)
 
 sudo bcache-super-show /dev/nvme0n1p1
 lsblk
-cat /sys/block/bcache0/bcache/cache_mode
-cat /sys/block/bcache0/bcache/state
+cat /sys/block/bcache*/bcache/cache_mode
+cat /sys/block/bcache*/bcache/state
 tail /sys/block/bcache0/bcache/stats_total/*
 

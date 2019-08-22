@@ -2,14 +2,12 @@
 direct=1
 rw=randread
 bs=4k
-runtime=10
+runtime=6000
 ;ramp_time=20
 ioengine=libaio
 iodepth=16
 group_reporting=1
 thread=1
-size=1024.0M
-random_distribution=zoned:100/4:0/96
 ;random_distribution=zoned:60/8:30/22:8/30:2/40
 ;random_distribution=zoned:70/4:15/16:10/20:5/60
 ;random_distribution=zoned:70/12:15/8:10/20:5/60

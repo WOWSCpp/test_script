@@ -12,9 +12,9 @@ size="100G"
 iodepth="64"
 rread=80
 rwrite=20
-numjob="1"
+numjob="4"
 
-filename="/dev/bcache0:/dev/bcache1:/dev/bcache2:/dev/bcache3:/dev/bcache4:/dev/bcache5:/dev/bcache6:/dev/bcache7"
+filename="/dev/bcache0:/dev/bcache1:/dev/bcache2"
 
 #filename="/dev/bcache0"
 
